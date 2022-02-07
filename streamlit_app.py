@@ -2,37 +2,98 @@ from collections import namedtuple
 import altair as alt
 import math
 import pandas as pd
+import numpy as np
 import streamlit as st
+import graphviz as graphviz
+import os
+
+st.title('SYSEN 5160: HW #1')
+st.header('Ronin Sharma (rrs234)')
+st.write('This is an example graph visualization showing the sequence of some ECE, CS, and INFO classes based on prerequisites.')
+
+st.graphviz_chart('''
+    digraph {
+        ECE_2300 -> ECE_3420
+        ECE_3420 -> ECE_4750
+        ECE_3420 -> ECE_5725
+        CS_1110 -> CS_2110
+        CS_1110 -> ECE_2300
+        CS_2110 -> CS_3110
+        INFO_1300 -> INFO_2300
+        INFO_2300 -> INFO_3300
+    }
+''')
 
 """
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
+This is an example bar chart.
 """
 
+data = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+        ]
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+chart_data = pd.DataFrame(
+     data,
+     columns=['Group 1', 'Group 2', 'Group 3'])
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+st.bar_chart(chart_data)
 
-    points_per_turn = total_points / num_turns
+"""
+Example Selectbox
+"""
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+option = st.selectbox(
+     'How would you like to be contacted?',
+     ('Email', 'Home phone', 'Mobile phone'))
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+st.write('You selected:', option)
+
+"""
+Example Button
+"""
+
+if st.button("Button"):
+    st.write("Button Clicked")
+else:
+    st.write("Button Not Clicked")
+
+"""
+Example JSON:
+"""
+st.json({1: 2, 3: 4, 'field1': 'value1'})
+
+
+"""
+Example Dataframe:
+"""
+
+df = pd.DataFrame([[1,2,3], [4,5,6]], columns = ['Column 1', 'Column 2', 'Column 3'])
+st.dataframe(df)
+
+"""
+Example Image:
+"""
+
+st.image(np.full((250, 250, 3), 120))
+
+"""
+Example Video:
+"""
+
+videoFile = 'example.mp4'
+videoData = open(videoFile, 'rb').read()
+
+st.video(videoData)
+
+"""
+Example Info Box:
+"""
+st.info("This application is for SYSEN 5160 HW #1")
+
+"""
+Example Success Box:
+"""
+st.success("This application works!")
+
