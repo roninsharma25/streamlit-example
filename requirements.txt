@@ -3,4 +3,3 @@ pandas
 streamlit
 graphviz
 numpy
-os
