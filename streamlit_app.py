@@ -7,6 +7,7 @@ import streamlit as st
 import graphviz as graphviz
 import os
 
+
 st.title('SYSEN 5160: HW #1')
 st.header('Ronin Sharma (rrs234)')
 st.write('This is an example graph visualization showing the sequence of some ECE, CS, and INFO classes based on prerequisites.')
@@ -41,6 +42,12 @@ chart_data = pd.DataFrame(
 st.bar_chart(chart_data)
 
 """
+Example Magic
+"""
+x = 5
+'Using magic, we can display the value of x: ', x
+
+"""
 Example Selectbox
 """
 
@@ -73,10 +80,17 @@ df = pd.DataFrame([[1,2,3], [4,5,6]], columns = ['Column 1', 'Column 2', 'Column
 st.dataframe(df)
 
 """
-Example Image:
+Example Container and Image:
 """
 
-st.image(np.full((250, 250, 3), 120))
+image = np.full((250, 250, 3), 120)
+
+st.write("This is the image outside (before) the container")
+st.image(image)
+
+with st.container():
+    st.write("This is the image inside the container")
+    st.image(image)
 
 """
 Example Video:
@@ -96,4 +110,11 @@ st.info("This application is for SYSEN 5160 HW #1")
 Example Success Box:
 """
 st.success("This application works!")
+
+"""
+Example Expander
+"""
+with st.expander("This is an expander"):
+    st.write("The expander has been expanded")
+
 
